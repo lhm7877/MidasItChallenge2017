@@ -55,7 +55,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             final CurrentServiceItem currentServiceItem = currentServiceItems.get(position);
-            holder.currentServiceItemContent.setText("현재 AA 나눔재단에서 나눔사업 진행중입니다");
+            holder.currentServiceItemContent.setText(currentServiceItem.getContents());
             holder.currentServiceItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

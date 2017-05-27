@@ -5,20 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     tools:context="com.midaschallenge.midasitchallenge2017.TalentRequestDetailActivity">
 
     <TextView
         android:text="글쓴이 정보"
         android:textSize="20sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="#F5F5F5">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,60 +52,106 @@
         android:text="이벤트 내용"
         android:textSize="20sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#959595"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
         <TextView
             android:text="제목"
             android:textSize="20sp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/tv_talent_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#959595"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
         <TextView
             android:text="요청일"
             android:textSize="20sp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/tv_talent_req_at"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#959595"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
         <TextView
             android:text="시작일시"
             android:textSize="20sp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/tv_talent_start_at"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#959595"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
         <TextView
             android:text="종료일시"
             android:textSize="20sp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/tv_talent_end_at"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#959595"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -115,7 +164,9 @@
                 android:id="@+id/tv_talent_contents"
                 android:textSize="30sp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
         </ScrollView>
 
         <Button

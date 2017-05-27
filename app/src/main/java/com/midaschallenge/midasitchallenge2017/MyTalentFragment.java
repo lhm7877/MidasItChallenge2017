@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -74,7 +75,10 @@ public class MyTalentFragment extends Fragment {
             CompletedItem completedItem = completedItems.get(position);
             holder.myTalentActivityItemTitle.setText(completedItem.getTitle());
             holder.myTalentActivityItemContent.setText(completedItem.getContent());
-            holder.complete_date.setText(String.valueOf(new Date(completedItem.getCompleted_at())));
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTimeInMillis(completedItem.getCompleted_at()*1000);
+            holder.complete_date.setText(startCalendar.get(Calendar.YEAR)+"."+(startCalendar.get(Calendar.MONTH)+1)
+                    +"."+startCalendar.get(Calendar.DAY_OF_MONTH));
         }
 
         @Override

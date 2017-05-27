@@ -49,8 +49,13 @@ public class PointUseActivity extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(MidasApplication.getContext(),"기부완료",Toast.LENGTH_SHORT).show();
-                finish();
+                int status = response.code();
+                if(status == 200){
+                    Toast.makeText(MidasApplication.getContext(),"기부완료",Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(MidasApplication.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

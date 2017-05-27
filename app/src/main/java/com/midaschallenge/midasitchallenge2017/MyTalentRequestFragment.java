@@ -84,49 +84,41 @@ public class MyTalentRequestFragment extends Fragment{
             holder.cv_my_talent_request.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(MidasApplication.getContext())
-                            .setTitle("재능기부가 완료되었습니까?")
-                            .setItems(items, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which){
-                                        case 0:
-                                            TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
-                                            Call<Void> call = talentDonationService.completeDonation(myTalentRequestItem.getId());
-                                            call.enqueue(new Callback<Void>() {
-                                                @Override
-                                                public void onResponse(Call<Void> call, Response<Void> response) {
-                                                    int status = response.code();
-                                                    if(status == 200){
-                                                        holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorWhite));
-                                                    }else{
-                                                        Toast.makeText(MidasApplication.getContext(), "EEROR", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
+                    TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+                    Call<Void> call = talentDonationService.completeDonation(myTalentRequestItem.getId());
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            int status = response.code();
+                            if(status == 200){
+                                holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorWhite));
+                                Toast.makeText(MidasApplication.getContext(),"재능 기부가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(MidasApplication.getContext(), "EEROR", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                                                @Override
-                                                public void onFailure(Call<Void> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
 
-                                                }
-                                            });
-                                            break;
-                                        case 1:
-                                            dialog.dismiss();
-                                            break;
-                                    }
-                                }
-                            }).show();
+                        }
+                    });
                 }
             });
             holder.myTalentRequestItemTitle.setText(myTalentRequestItem.getTitle());
             holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContents());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(myTalentRequestItem.getStart_at()*1000);
-            holder.start_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
-            calendar.setTimeInMillis(myTalentRequestItem.getEnd_at()*1000);
-            holder.end_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
-            calendar.setTimeInMillis(myTalentRequestItem.getReq_at()*1000);
-            holder.req_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTimeInMillis(myTalentRequestItem.getStart_at()*1000);
+
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTimeInMillis(myTalentRequestItem.getEnd_at()*1000);
+
+            Calendar reqCalendar = Calendar.getInstance();
+            reqCalendar.setTimeInMillis(myTalentRequestItem.getReq_at()*1000);
+
+            holder.start_at.setText(startCalendar.get(Calendar.YEAR)+"."+(startCalendar.get(Calendar.MONTH)+1)+"."+startCalendar.get(Calendar.DAY_OF_MONTH));
+            holder.end_at.setText(endCalendar.get(Calendar.YEAR)+"."+(endCalendar.get(Calendar.MONTH)+1)+"."+endCalendar.get(Calendar.DAY_OF_MONTH));
+            holder.req_at.setText(reqCalendar.get(Calendar.YEAR)+"."+(reqCalendar.get(Calendar.MONTH)+1)+"."+reqCalendar.get(Calendar.DAY_OF_MONTH));
             Log.d("data", String.valueOf(new Date(myTalentRequestItem.getReq_at())));
         }
 

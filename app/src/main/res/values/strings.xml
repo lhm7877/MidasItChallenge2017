@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MidasItChallenge2017</string>
+    <string name="app_name">TalentDonation</string>
     <string name="profile_tab_1">재능요청 내역</string>
     <string name="profile_tab_2">재능기부 내역</string>
     <string name="profile_tab_3">포인트사용 내역</string>

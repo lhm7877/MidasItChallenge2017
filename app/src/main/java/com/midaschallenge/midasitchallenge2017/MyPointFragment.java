@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.midaschallenge.midasitchallenge2017.dto.DonationItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -69,7 +70,9 @@ public class MyPointFragment extends Fragment {
             holder.donation_target.setText(String.valueOf(donationItem.getTarget_point()));
             holder.donation_owned.setText(String.valueOf(donationItem.getOwned_point()));
             holder.donation_point.setText(String.valueOf(donationItem.getContri_point()));
-            holder.donation_due.setText(String.valueOf(new Date(donationItem.getDue_date())));
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTimeInMillis(donationItem.getDue_date()*1000);
+            holder.donation_due.setText(startCalendar.get(Calendar.YEAR)+"."+(startCalendar.get(Calendar.MONTH)+1)+"."+startCalendar.get(Calendar.DAY_OF_MONTH));
         }
 
         @Override
