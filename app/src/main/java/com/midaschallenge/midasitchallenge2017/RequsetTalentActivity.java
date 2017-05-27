@@ -41,7 +41,8 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
     private boolean isStartBtn;
 
-    private int mYear,mMonth,mDay,mHour,mMinute;
+    private TalentDonationDTO talentDonationDTO;
+    private GregorianCalendar startCalendar, endCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,61 +52,70 @@ public class RequsetTalentActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
-        GregorianCalendar calendar = new GregorianCalendar();
-        mYear = calendar.get(Calendar.YEAR);
-        mMonth = calendar.get(Calendar.MONTH);
-        mDay= calendar.get(Calendar.DAY_OF_MONTH);
-        mHour = calendar.get(Calendar.HOUR_OF_DAY);
-        mMinute = calendar.get(Calendar.MINUTE);
+    private void init() {
+        startCalendar = new GregorianCalendar();
+        endCalendar = new GregorianCalendar();
     }
 
     @OnClick(R.id.btn_request_accept)
-    void clickRequestAccept(){
+    void clickRequestAccept() {
         uploadReqeust();
     }
 
     @OnClick(R.id.btn_request_cancel)
-    void clickRequestCancel(){
+    void clickRequestCancel() {
         finish();
     }
 
     @OnClick(R.id.btn_start_date)
-    void clickStartDate(){
-        Log.i("mylog","클릭버튼");
+    void clickStartDate() {
+        Log.i("mylog", "클릭버튼");
         isStartBtn = true;
-        new DatePickerDialog(this, dateSetListener,mYear,mMonth,mDay).show();
+        new DatePickerDialog(this, dateSetListener,
+                startCalendar.get(Calendar.YEAR),
+                startCalendar.get(Calendar.MONTH),
+                startCalendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
     }
 
     @OnClick(R.id.btn_start_time)
-    void clickStartTime(){
+    void clickStartTime() {
         isStartBtn = true;
-        new TimePickerDialog(this, timeSetListener, mHour, mMinute, false).show();
+        new TimePickerDialog(this, timeSetListener,
+                startCalendar.get(Calendar.HOUR_OF_DAY),
+                startCalendar.get(Calendar.MINUTE),
+                false
+        ).show();
     }
 
     @OnClick(R.id.btn_end_date)
-    void clickEndDate(){
+    void clickEndDate() {
         isStartBtn = false;
-        new DatePickerDialog(this, dateSetListener,mYear,mMonth,mDay).show();
+        new DatePickerDialog(this, dateSetListener,
+                endCalendar.get(Calendar.YEAR),
+                endCalendar.get(Calendar.MONTH),
+                endCalendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
     }
 
     @OnClick(R.id.btn_end_time)
-    void clickEndTime(){
+    void clickEndTime() {
         isStartBtn = false;
-        new TimePickerDialog(this, timeSetListener, mHour, mMinute, false).show();
+        new TimePickerDialog(this, timeSetListener,
+                endCalendar.get(Calendar.HOUR_OF_DAY),
+                endCalendar.get(Calendar.MINUTE),
+                false
+        ).show();
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            if(isStartBtn){
-                btn_start_date.setText(String.format("%d / %d / %d", year,month+1, dayOfMonth));
-            }else {
-                btn_end_date.setText(String.format("%d / %d / %d", year,month+1, dayOfMonth));
+            if (isStartBtn) {
+                btn_start_date.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
+            } else {
+                btn_end_date.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
             }
-            mYear = year;
-            mMonth = month;
-            mDay =dayOfMonth;
         }
     };
 
@@ -113,30 +123,32 @@ public class RequsetTalentActivity extends AppCompatActivity {
     private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            Log.i("mylog","들어옴");
-            if(isStartBtn) {
+            if (isStartBtn) {
                 btn_start_time.setText(String.format("%d / %d", hourOfDay, minute));
-            }else {
+            } else {
                 btn_end_time.setText(String.format("%d / %d", hourOfDay, minute));
             }
-            mHour = hourOfDay;
-            mMinute = minute;
         }
     };
 
 
-    private void uploadReqeust(){
+    private void uploadReqeust() {
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
-        Call<TalentDonationDTO> call = talentDonationService.updateTalentDonation(etv_request_title.getText().toString(), etv_request_contents.getText().toString());
+        Call<TalentDonationDTO> call = talentDonationService.updateTalentDonation(
+                etv_request_title.getText().toString(),//제목
+                etv_request_contents.getText().toString(),//내용
+                startCalendar.getInstance().getTimeInMillis(),
+                endCalendar.getInstance().getTimeInMillis()
+        );
         call.enqueue(new Callback<TalentDonationDTO>() {
             @Override
             public void onResponse(Call<TalentDonationDTO> call, Response<TalentDonationDTO> response) {
-                Toast.makeText(RequsetTalentActivity.this,"업로드 완료",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RequsetTalentActivity.this, "업로드 완료", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<TalentDonationDTO> call, Throwable t) {
-                Toast.makeText(RequsetTalentActivity.this,"서버 통신 실패",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RequsetTalentActivity.this, "서버 통신 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }

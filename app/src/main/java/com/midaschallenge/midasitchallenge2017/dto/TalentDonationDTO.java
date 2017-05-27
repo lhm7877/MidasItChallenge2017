@@ -8,6 +8,29 @@ public class TalentDonationDTO {
     private int id;
     private String title;
     private String content;
+    private long startDate;
+    private long endDate;
+
+    public TalentDonationDTO(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
 
     public int getId() {
         return id;
