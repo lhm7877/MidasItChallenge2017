@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<TalentDonationDTO>> call, Response<ArrayList<TalentDonationDTO>> response) {
                 if(response.isSuccessful()){
                     talentDonationDTOs = response.body();
-
+                    
                 }
             }
 

@@ -65,7 +65,7 @@ public class MyTalentRequestFragment extends Fragment{
         public void onBindViewHolder(ViewHolder holder, int position) {
             MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
             holder.myTalentRequestItemTitle.setText(myTalentRequestItem.getTitle());
-            holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContent());
+            holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContents());
         }
 
         @Override
@@ -97,6 +97,7 @@ public class MyTalentRequestFragment extends Fragment{
             public void onResponse(Call<ArrayList<MyTalentRequestItem>> call, Response<ArrayList<MyTalentRequestItem>> response) {
                 if(response.isSuccessful()){
                     items = response.body();
+                    myTalentRequestAdapter.addItems(items);
                 }
             }
 

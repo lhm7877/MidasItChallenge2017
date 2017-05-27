@@ -42,7 +42,9 @@ public class RequsetTalentActivity extends AppCompatActivity {
     private boolean isStartBtn;
 
     private TalentDonationDTO talentDonationDTO;
-    private GregorianCalendar startCalendar, endCalendar;
+    private Calendar startCalendar, endCalendar;
+
+    private long start_unix_time,end_unix_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,14 @@ public class RequsetTalentActivity extends AppCompatActivity {
     }
 
     private void init() {
-        startCalendar = new GregorianCalendar();
-        endCalendar = new GregorianCalendar();
+        startCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
     }
 
     @OnClick(R.id.btn_request_accept)
     void clickRequestAccept() {
-        uploadReqeust();finish();
+        uploadReqeust();
+        finish();
     }
 
     @OnClick(R.id.btn_request_cancel)
@@ -112,9 +115,15 @@ public class RequsetTalentActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             if (isStartBtn) {
+                startCalendar.set(Calendar.YEAR, year);
+                startCalendar.set(Calendar.MONTH, month);
+                startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 btn_start_date.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
             } else {
                 btn_end_date.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
+                endCalendar.set(Calendar.YEAR, year);
+                endCalendar.set(Calendar.MONTH, month);
+                endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         }
     };
@@ -125,8 +134,12 @@ public class RequsetTalentActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if (isStartBtn) {
                 btn_start_time.setText(String.format("%d / %d", hourOfDay, minute));
+                startCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                startCalendar.set(Calendar.MINUTE, minute);
             } else {
                 btn_end_time.setText(String.format("%d / %d", hourOfDay, minute));
+                endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                endCalendar.set(Calendar.MINUTE, minute);
             }
         }
     };
@@ -134,20 +147,20 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
     private void uploadReqeust() {
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
-        Call<TalentDonationDTO> call = talentDonationService.updateTalentDonation(
+        Call<Void> call = talentDonationService.updateTalentDonation(
                 etv_request_title.getText().toString(),//제목
                 etv_request_contents.getText().toString(),//내용
-                startCalendar.getInstance().getTimeInMillis(),
-                endCalendar.getInstance().getTimeInMillis()
+                startCalendar.getTimeInMillis() / 1000,
+                endCalendar.getTimeInMillis() / 1000
         );
-        call.enqueue(new Callback<TalentDonationDTO>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<TalentDonationDTO> call, Response<TalentDonationDTO> response) {
-                Toast.makeText(RequsetTalentActivity.this, "업로드 완료", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(RequsetTalentActivity.this, "업로드 완료2", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<TalentDonationDTO> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(RequsetTalentActivity.this, "서버 통신 실패", Toast.LENGTH_SHORT).show();
             }
         });

@@ -33,8 +33,9 @@ public interface TalentDonationService {
     @POST("users/login")
     Call<Void> login(@Field("uuid") String uuid, @Field("name") String name);
 
+    @FormUrlEncoded
     @POST("talent/req_donation")
-    Call<TalentDonationDTO> updateTalentDonation(
+    Call<Void> updateTalentDonation(
             @Field("title") String title,
             @Field("contents") String contents,
             @Field("start_at") Long startDate,
