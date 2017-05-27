@@ -70,6 +70,6 @@ public interface TalentDonationService {
     @PUT("talent/{talent_id}")
     Call<Void> completeDonation(@Path("talent_id") int id);
 
-    @PUT("talent/{donate_point}")
+    @PUT("talent/donate_point")
     Call<Void> donatePoint(@Path("place_id") int id,@Path("point") int point);
 }
