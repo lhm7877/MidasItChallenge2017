@@ -52,6 +52,7 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         profile_user_name_txt.setText(talentDonationDTO.getName());
         tv_talent_title.setText(talentDonationDTO.getTitle());
         tv_talent_req_at.setText(String.valueOf(talentDonationDTO.getReq_at()));
+        tv_talent_start_at.setText(String.valueOf(talentDonationDTO.getStart_at()));
         tv_talent_end_at.setText(String.valueOf(talentDonationDTO.getEnd_at()));
         tv_talent_contents.setText(talentDonationDTO.getContents());
 
