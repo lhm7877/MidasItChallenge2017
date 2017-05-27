@@ -13,6 +13,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,7 +55,11 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         profile_user_name_txt.setText(talentDonationDTO.getName());
         tv_talent_title.setText(talentDonationDTO.getTitle());
         tv_talent_req_at.setText(String.valueOf(talentDonationDTO.getReq_at()));
-        tv_talent_start_at.setText(String.valueOf(talentDonationDTO.getStart_at()));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(talentDonationDTO.getStart_at()*1000);
+
+        tv_talent_start_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
         tv_talent_end_at.setText(String.valueOf(talentDonationDTO.getEnd_at()));
         tv_talent_contents.setText(talentDonationDTO.getContents());
 

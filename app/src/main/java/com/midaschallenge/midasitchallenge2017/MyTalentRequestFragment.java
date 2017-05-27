@@ -66,7 +66,7 @@ public class MyTalentRequestFragment extends Fragment{
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             final MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
-            if(myTalentRequestItem.getCompleted_at().equals("") || myTalentRequestItem.getCompleted_at()==null){
+            if(myTalentRequestItem.getCompleted_at()==null){
                 holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorAccent));
             }
 
