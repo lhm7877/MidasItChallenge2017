@@ -6,28 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.MotionEvent;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
     private ImageButton main_profile_btn;
     private FloatingActionButton fbtn_add_request_talent_donation;
 
     private RecyclerView rv_talentDonationList;
     private RecyclerView.LayoutManager rv_layoutManager;
     private TalentRecyclerViewAdapter talentRecyclerViewAdapter;
+    private ImageButton mainProfileBtn;
 
     private ArrayList<TalentDonationDTO> talentDonationDTOs;
     @Override
@@ -39,9 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
 
-        main_profile_btn = (ImageButton) findViewById(R.id.main_profile_btn);
         fbtn_add_request_talent_donation = (FloatingActionButton) findViewById(R.id.fbtn_add_request_talent_donation);
-        fbtn_add_request_talent_donation.setOnClickListener(this);
+        mainProfileBtn = (ImageButton) findViewById(R.id.main_profile_btn);
+        fbtn_add_request_talent_donation.setOnClickListener(mOnClickListener);
+        mainProfileBtn.setOnTouchListener(this);
 
         rv_layoutManager = new LinearLayoutManager(this);
         rv_talentDonationList = (RecyclerView) findViewById(R.id.rv_main_talent_donation);
@@ -72,12 +69,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.fbtn_add_request_talent_donation :
-                Intent intent = new Intent();
-
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.fbtn_add_request_talent_donation :
+                    Intent intent = new Intent(MainActivity.this, RequsetTalentActivity.class);
+                    startActivity(intent);
+            }
         }
+    };
+
+    public boolean onTouch(View v, MotionEvent event) {
+        int action = event.getAction();
+        switch (v.getId()) {
+            case R.id.main_profile_btn:
+                if (action == MotionEvent.ACTION_UP) {
+                    Intent intent = new Intent(this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+        }
+        return false;
     }
 }

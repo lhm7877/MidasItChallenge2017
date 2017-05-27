@@ -2,10 +2,12 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:padding="16dp">
+    android:layout_margin="16dp">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:gravity="center_vertical"
         android:text="현재 AA 나눔재단에서 나눔사업 진행중입니다 "
         android:id="@+id/current_service_item_content"/>
 </android.support.v7.widget.CardView>
