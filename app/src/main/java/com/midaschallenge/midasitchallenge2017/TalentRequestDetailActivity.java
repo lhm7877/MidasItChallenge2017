@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,10 +55,12 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         tv_talent_end_at.setText(String.valueOf(talentDonationDTO.getEnd_at()));
         tv_talent_contents.setText(talentDonationDTO.getContents());
 
-        if(PropertyManager.getInstance().getUserId() == talentDonationDTO.getUser_id() || talentDonationDTO.isCompleted()){
+        if(talentDonationDTO.isCompleted()){
             btn_talent_request.setText("참가 완료");
             btn_talent_request.setEnabled(false);
             btn_talent_request.setBackgroundColor(getResources().getColor(R.color.disabled));
+        }else if(PropertyManager.getInstance().getUserId() == talentDonationDTO.getUser_id()){
+            btn_talent_request.setVisibility(View.GONE);
         }
     }
     @OnClick(R.id.btn_talent_request)
