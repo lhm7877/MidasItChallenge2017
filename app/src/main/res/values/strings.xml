@@ -8,4 +8,8 @@
     <string name="sign_up_user_name_hint">사용자 이름을 입력하세요.</string>
     <string name="sign_up_btn">시작하기</string>
     <string name="sign_up_error">사용자 정보를 입력해주세요.</string>
+    <string name="take_photo">사진찍기</string>
+    <string name="from_album">갤러리</string>
+    <string name="cancel">취소</string>
+    <string name="posting">사용자 이미지</string>
 </resources>

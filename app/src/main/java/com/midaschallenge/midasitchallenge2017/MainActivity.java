@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         init();
+        Log.d("DATA", "name: " + PropertyManager.getInstance().getUserName()+" " +"uuid: "+PropertyManager.getInstance().getUuid()+" "+
+        "id: "+PropertyManager.getInstance().getUserId()+" "+"point: " + PropertyManager.getInstance().getUserPoint());
     }
 
     private void init() {

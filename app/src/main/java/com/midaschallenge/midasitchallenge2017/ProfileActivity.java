@@ -28,12 +28,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected ViewPager profileViewPager;
     private ProfileViewPagerAdapter profileViewPagerAdapter;
     private FragmentManager fragmentManager;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        userName = PropertyManager.getInstance().getUserName();
+        if(!userName.equals("")){
+            profileUserName.setText(userName);
+        }
         fragmentManager = getSupportFragmentManager();
         profileViewPagerAdapter = new ProfileViewPagerAdapter(fragmentManager);
         profileTabLayout.setupWithViewPager(profileViewPager);
