@@ -34,6 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected TabLayout profileTabLayout;
     @BindView(R.id.profile_viewpager)
     protected ViewPager profileViewPager;
+    @BindView(R.id.profile_user_point_txt)
+    protected TextView profile_user_point_txt;
     private ProfileViewPagerAdapter profileViewPagerAdapter;
     private FragmentManager fragmentManager;
     private String userName;
@@ -50,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         if(!userName.equals("")){
             profileUserName.setText(userName);
         }
+        profile_user_point_txt.setText(String.valueOf(PropertyManager.getInstance().getUserPoint()) + " 사용가능");
         fragmentManager = getSupportFragmentManager();
         profileViewPagerAdapter = new ProfileViewPagerAdapter(fragmentManager);
         profileTabLayout.setupWithViewPager(profileViewPager);

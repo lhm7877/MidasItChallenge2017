@@ -77,6 +77,8 @@ public class MyTalentRequestFragment extends Fragment{
             final MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
             if(myTalentRequestItem.getCompleted_at()==null){
                 holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorAccent));
+            } else{
+                holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorWhite));
             }
 
             holder.cv_my_talent_request.setOnClickListener(new View.OnClickListener() {

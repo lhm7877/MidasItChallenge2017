@@ -1,7 +1,11 @@
 package com.midaschallenge.midasitchallenge2017;
 
 import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
+<<<<<<< HEAD
 import com.midaschallenge.midasitchallenge2017.dto.DonationItem;
+=======
+import com.midaschallenge.midasitchallenge2017.dto.CurrentServiceItem;
+>>>>>>> 2c1b9757f6d49761d581d5b3d65b8797bc589d26
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
@@ -25,6 +29,9 @@ import retrofit2.http.Path;
 * Created by Hooo on 2017-05-27.
 */
 public interface TalentDonationService {
+
+    @GET("talent/donation_list")
+    Call<ArrayList<CurrentServiceItem>> cuArrayListCall();
 
     @GET("talent/list")
     Call<ArrayList<TalentDonationDTO>> talentDonationList();
@@ -70,4 +77,6 @@ public interface TalentDonationService {
     @GET("users/donations")
     Call<ArrayList<DonationItem>> getDonations();
 
+    @PUT("talent/donate_point")
+    Call<Void> donatePoint(@Path("place_id") int id,@Path("point") int point);
 }
