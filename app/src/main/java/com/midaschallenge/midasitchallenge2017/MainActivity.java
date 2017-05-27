@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         rv_talentDonationList.setLayoutManager(rv_layoutManager);
 
         callTalentDonationList();
-        //TODO: talentDonationDTOs 받아오기
         talentRecyclerViewAdapter = new TalentRecyclerViewAdapter(this,talentDonationDTOs);
         rv_talentDonationList.setAdapter(talentRecyclerViewAdapter);
     }
