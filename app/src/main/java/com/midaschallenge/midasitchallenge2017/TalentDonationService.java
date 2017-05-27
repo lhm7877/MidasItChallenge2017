@@ -38,6 +38,11 @@ public interface TalentDonationService {
     Call<UserItem> login(@Field("uuid") String uuid, @Field("name") String name);
 
     @FormUrlEncoded
+    @POST("talent/apply_donation")
+    Call<Void> applyDonation(@Field("talent_id") int talent_id);
+
+
+    @FormUrlEncoded
     @POST("talent/req_donation")
     Call<Void> updateTalentDonation(
             @Field("title") String title,

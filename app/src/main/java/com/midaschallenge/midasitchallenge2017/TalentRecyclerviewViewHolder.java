@@ -22,6 +22,6 @@ public class TalentRecyclerviewViewHolder extends RecyclerView.ViewHolder {
 
     public TalentRecyclerviewViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(itemView);
+        ButterKnife.bind(this,itemView);
     }
 }

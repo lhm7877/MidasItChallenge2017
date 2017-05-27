@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         "id: "+PropertyManager.getInstance().getUserId()+" "+"point: " + PropertyManager.getInstance().getUserPoint());
     }
 
+    protected void onResume() {
+        super.onResume();
+        talentRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
     private void init() {
         rv_layoutManager = new LinearLayoutManager(this);
         rv_talentDonationList.setLayoutManager(rv_layoutManager);
