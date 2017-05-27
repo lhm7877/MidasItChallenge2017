@@ -74,9 +74,10 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         tv_talent_end_at.setText(endCalendar.get(Calendar.YEAR)+"."+(endCalendar.get(Calendar.MONTH)+1)
                 +"."+endCalendar.get(Calendar.DAY_OF_MONTH)+"."+endCalendar.get(Calendar.HOUR)
                 +"."+endCalendar.get(Calendar.MINUTE));
-        tv_talent_contents.setText(reqCalendar.get(Calendar.YEAR)+"."+(reqCalendar.get(Calendar.MONTH)+1)
+        tv_talent_req_at.setText(reqCalendar.get(Calendar.YEAR)+"."+(reqCalendar.get(Calendar.MONTH)+1)
                 +"."+reqCalendar.get(Calendar.DAY_OF_MONTH)+"."+reqCalendar.get(Calendar.HOUR)
                 +"."+reqCalendar.get(Calendar.MINUTE));
+        tv_talent_contents.setText(talentDonationDTO.getContents());
 
         Glide.with(this).load("http://192.168.0.22:5000/rest/v0.1/users/profile/"+talentDonationDTO.getId())
                 .apply(new RequestOptions().error(R.drawable.user_image))
