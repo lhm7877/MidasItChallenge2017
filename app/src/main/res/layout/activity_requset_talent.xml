@@ -77,7 +77,7 @@
             android:id="@+id/etv_request_contents"
             android:textSize="15sp"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="280dp"
             android:gravity="top"/>
         <LinearLayout
             android:layout_width="match_parent"

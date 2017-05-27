@@ -126,7 +126,7 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
 
     private void uploadReqeust(){
-        TalentDonationService talentDonationService = TalentDonationService.retrofit.create(TalentDonationService.class);
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<TalentDonationDTO> call = talentDonationService.updateTalentDonation(etv_request_title.getText().toString(), etv_request_contents.getText().toString());
         call.enqueue(new Callback<TalentDonationDTO>() {
             @Override

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void callTalentDonationList(){
-        TalentDonationService talentDonationService = TalentDonationService.retrofit.create(TalentDonationService.class);
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<ArrayList<TalentDonationDTO>> call = talentDonationService.talentDonationList();
         call.enqueue(new Callback<ArrayList<TalentDonationDTO>>() {
             @Override
@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         });
     }
+
+
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
