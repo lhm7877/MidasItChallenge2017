@@ -1,6 +1,8 @@
 package com.midaschallenge.midasitchallenge2017;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,13 +34,23 @@ public class TalentRecyclerViewAdapter extends RecyclerView.Adapter<TalentRecycl
     }
 
     @Override
-    public void onBindViewHolder(TalentRecyclerviewViewHolder holder, int position) {
-        holder.tv_item_title.setText(mTalentDonationDTOs.get(position).getTitle());
-        holder.tv_item_contents.setText(mTalentDonationDTOs.get(position).getContents());
+    public void onBindViewHolder(final TalentRecyclerviewViewHolder holder, int position) {
+        final TalentDonationDTO talentDonationDTO = mTalentDonationDTOs.get(position);
+        holder.ll_item_talent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,TalentRequestDetailActivity.class);
+                intent.putExtra("TalentDonationDTO",talentDonationDTO);
+                mContext.startActivity(intent);
+            }
+        });
+        holder.tv_item_title.setText(talentDonationDTO.getTitle());
+        holder.tv_item_contents.setText(talentDonationDTO.getContents());
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mTalentDonationDTOs.size();
     }
 }

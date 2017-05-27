@@ -19,7 +19,7 @@ import retrofit2.http.Path;
 */
 public interface TalentDonationService {
 
-    @GET("talent/req_donation")
+    @GET("talent/list")
     Call<ArrayList<TalentDonationDTO>> talentDonationList();
 
     @GET("talent/my_requests")

@@ -1,13 +1,52 @@
 package com.midaschallenge.midasitchallenge2017.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Hooo on 2017-05-27.
  */
 
-public class TalentDonationDTO {
+public class TalentDonationDTO implements Serializable {
     private int id;
+    private int user_id;
     private String title;
     private String contents;
+    private boolean completed;
+    private long req_at;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public long getReq_at() {
+        return req_at;
+    }
+
+    public void setReq_at(long req_at) {
+        this.req_at = req_at;
+    }
+
     private long start_at;
     private long end_at;
 

@@ -40,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         rv_layoutManager = new LinearLayoutManager(this);
         rv_talentDonationList.setLayoutManager(rv_layoutManager);
-
         callTalentDonationList();
-        talentRecyclerViewAdapter = new TalentRecyclerViewAdapter(this,talentDonationDTOs);
-        rv_talentDonationList.setAdapter(talentRecyclerViewAdapter);
+
     }
 
     private void callTalentDonationList(){
@@ -54,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<TalentDonationDTO>> call, Response<ArrayList<TalentDonationDTO>> response) {
                 if(response.isSuccessful()){
                     talentDonationDTOs = response.body();
-                    
+                    talentRecyclerViewAdapter = new TalentRecyclerViewAdapter(MainActivity.this,talentDonationDTOs);
+                    rv_talentDonationList.setAdapter(talentRecyclerViewAdapter);
                 }
             }
 
