@@ -14,36 +14,31 @@ import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
-    private ImageButton main_profile_btn;
-    private FloatingActionButton fbtn_add_request_talent_donation;
-
-    private RecyclerView rv_talentDonationList;
+public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.rv_main_talent_donation)
+    protected RecyclerView rv_talentDonationList;
     private RecyclerView.LayoutManager rv_layoutManager;
     private TalentRecyclerViewAdapter talentRecyclerViewAdapter;
-    private ImageButton mainProfileBtn;
 
     private ArrayList<TalentDonationDTO> talentDonationDTOs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         init();
     }
 
     private void init() {
-
-        fbtn_add_request_talent_donation = (FloatingActionButton) findViewById(R.id.fbtn_add_request_talent_donation);
-        mainProfileBtn = (ImageButton) findViewById(R.id.main_profile_btn);
-        fbtn_add_request_talent_donation.setOnClickListener(mOnClickListener);
-        mainProfileBtn.setOnTouchListener(this);
-
         rv_layoutManager = new LinearLayoutManager(this);
-        rv_talentDonationList = (RecyclerView) findViewById(R.id.rv_main_talent_donation);
         rv_talentDonationList.setLayoutManager(rv_layoutManager);
 
         callTalentDonationList();
@@ -70,29 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         });
     }
 
+    @OnClick(R.id.fbtn_add_request_talent_donation)
+    void clickFbtn(){
+        Intent intent = new Intent(MainActivity.this, RequsetTalentActivity.class);
+        startActivity(intent);
+    }
 
-
-    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.fbtn_add_request_talent_donation :
-                    Intent intent = new Intent(MainActivity.this, RequsetTalentActivity.class);
-                    startActivity(intent);
-            }
-        }
-    };
-
-    public boolean onTouch(View v, MotionEvent event) {
-        int action = event.getAction();
-        switch (v.getId()) {
-            case R.id.main_profile_btn:
-                if (action == MotionEvent.ACTION_UP) {
-                    Intent intent = new Intent(this, ProfileActivity.class);
-                    startActivity(intent);
-                }
-                return true;
-        }
-        return false;
+    @OnClick(R.id.main_profile_btn)
+    void clickProfileBtn(){
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 }

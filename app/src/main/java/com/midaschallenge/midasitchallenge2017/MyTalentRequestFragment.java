@@ -14,12 +14,16 @@ import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by bo on 2017. 5. 27..
  */
 
 public class MyTalentRequestFragment extends Fragment{
-    private RecyclerView myTalentRequestRecyclerView;
+    @BindView(R.id.my_talent_request_rv)
+    protected RecyclerView myTalentRequestRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private MyTalentRequestAdapter myTalentRequestAdapter;
     private ArrayList<MyTalentRequestItem> items = new ArrayList<>();
@@ -32,7 +36,7 @@ public class MyTalentRequestFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.from(MidasApplication.getContext()).inflate(R.layout.fragment_my_talent_request, container, false);
-        myTalentRequestRecyclerView = (RecyclerView) view.findViewById(R.id.my_talent_request_rv);
+        ButterKnife.bind(this, view);
         linearLayoutManager = new LinearLayoutManager(MidasApplication.getContext(), LinearLayoutManager.VERTICAL, false);
         myTalentRequestAdapter = new MyTalentRequestAdapter();
         myTalentRequestRecyclerView.setLayoutManager(linearLayoutManager);

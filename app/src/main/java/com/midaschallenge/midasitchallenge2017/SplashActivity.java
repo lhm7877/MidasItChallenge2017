@@ -111,7 +111,7 @@ public class SplashActivity extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
-                if(response.code() == OK){
+                if(response.code() == 200){
                     Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
                     startActivity(intent);
                     finish();

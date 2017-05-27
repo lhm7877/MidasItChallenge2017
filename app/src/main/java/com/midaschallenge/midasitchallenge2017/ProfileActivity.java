@@ -1,26 +1,31 @@
 package com.midaschallenge.midasitchallenge2017;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnTouchListener {
-    private CircleImageView profileUserImage;
-    private TextView profileUserName, profileUserPoint;
-    private TabLayout profileTabLayout;
-    private ViewPager profileViewPager;
+public class ProfileActivity extends AppCompatActivity {
+    @BindView(R.id.profile_user_image)
+    protected CircleImageView profileUserImage;
+    @BindView(R.id.profile_user_name_txt)
+    protected TextView profileUserName;
+    @BindView(R.id.profile_tab_layout)
+    protected TabLayout profileTabLayout;
+    @BindView(R.id.profile_viewpager)
+    protected ViewPager profileViewPager;
     private ProfileViewPagerAdapter profileViewPagerAdapter;
     private FragmentManager fragmentManager;
 
@@ -28,12 +33,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnTouchLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        profileUserImage = (CircleImageView) findViewById(R.id.profile_user_image);
-        profileUserName = (TextView) findViewById(R.id.profile_user_name_txt);
-        profileUserPoint = (TextView) findViewById(R.id.profile_user_point_txt);
-        profileUserPoint.setOnTouchListener(this);
-        profileTabLayout = (TabLayout) findViewById(R.id.profile_tab_layout);
-        profileViewPager = (ViewPager) findViewById(R.id.profile_viewpager);
+        ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
         profileViewPagerAdapter = new ProfileViewPagerAdapter(fragmentManager);
         profileTabLayout.setupWithViewPager(profileViewPager);
@@ -48,19 +48,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnTouchLi
         viewPager.setAdapter(profileViewPagerAdapter);
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        int action = event.getAction();
-        switch (v.getId()){
-            case R.id.profile_user_point_txt:
-                if(action == MotionEvent.ACTION_UP){
-                    Intent intent = new Intent(this, CurrentServiceActivity.class);
-                    startActivity(intent);
-                }
-                return true;
-        }
-        return false;
+    @OnClick(R.id.profile_user_point_txt)
+    void clickPoint(){
+        Intent intent = new Intent(this, CurrentServiceActivity.class);
+        startActivity(intent);
     }
+
 
     private class ProfileViewPagerAdapter extends FragmentPagerAdapter{
         private ArrayList<Fragment> profileFragment = new ArrayList<>();

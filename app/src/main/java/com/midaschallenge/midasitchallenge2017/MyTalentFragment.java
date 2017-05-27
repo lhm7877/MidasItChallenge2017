@@ -17,12 +17,16 @@ import com.midaschallenge.midasitchallenge2017.dto.TalentItem;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by bo on 2017. 5. 27..
  */
 
 public class MyTalentFragment extends Fragment {
-    private RecyclerView myTalentRecyclerView;
+    @BindView(R.id.my_talent_activity_rv)
+    protected RecyclerView myTalentRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private MyTalentActivityAdapter myTalentActivityAdapter;
     private ArrayList<TalentItem> items = new ArrayList<>();
@@ -36,7 +40,7 @@ public class MyTalentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.from(MidasApplication.getContext()).inflate(R.layout.fragment_my_talent, container, false);
-        myTalentRecyclerView = (RecyclerView) view.findViewById(R.id.my_talent_activity_rv);
+        ButterKnife.bind(this, view);
         myTalentActivityAdapter = new MyTalentActivityAdapter(MidasApplication.getContext());
         linearLayoutManager = new LinearLayoutManager(MidasApplication.getContext(),LinearLayoutManager.VERTICAL,false);
         myTalentRecyclerView.setLayoutManager(linearLayoutManager);

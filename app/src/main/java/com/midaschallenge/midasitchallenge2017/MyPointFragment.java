@@ -14,12 +14,16 @@ import com.midaschallenge.midasitchallenge2017.dto.PointActivityItem;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by bo on 2017. 5. 27..
  */
 
 public class MyPointFragment extends Fragment {
-    private RecyclerView myPointActivityRecyclerView;
+    @BindView(R.id.my_point_activity_rv)
+    protected RecyclerView myPointActivityRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private MyPointActivityAdatper myPointActivityAdatper;
     private ArrayList<PointActivityItem> items = new ArrayList<>();
@@ -32,7 +36,7 @@ public class MyPointFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.from(MidasApplication.getContext()).inflate(R.layout.fragment_my_point, container, false);
-        myPointActivityRecyclerView = (RecyclerView) view.findViewById(R.id.my_point_activity_rv);
+        ButterKnife.bind(this, view);
         linearLayoutManager = new LinearLayoutManager(MidasApplication.getContext(), LinearLayoutManager.VERTICAL, false);
         myPointActivityAdatper = new MyPointActivityAdatper();
         myPointActivityRecyclerView.setLayoutManager(linearLayoutManager);
