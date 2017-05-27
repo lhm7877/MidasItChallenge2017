@@ -23,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private CircleImageView signUpUserImage;
     private EditText signUpUserNameEdit;
     private Button signUpBtn;
+    private Button deleteUserBtn;
     private final int OK = 201;
 
     @Override
@@ -33,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signUpUserNameEdit = (EditText) findViewById(R.id.sign_up_user_name_edit);
         signUpBtn = (Button) findViewById(R.id.sign_up_btn);
         signUpBtn.setOnClickListener(this);
+        deleteUserBtn = (Button) findViewById(R.id.delete_user_btn);
+        deleteUserBtn.setOnClickListener(this);
     }
 
     @Override
@@ -50,16 +53,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     signUp(signUpItem);
                 }
                 break;
+            case R.id.delete_user_btn:
+                deleteUser(PropertyManager.getInstance().getUuid());
+                break;
         }
     }
 
     private void signUp(final SignUpItem signUpItem){
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
-        Call<Response> call = talentDonationService.signUp(signUpItem.getUuid(), signUpItem.getName());
-        call.enqueue(new Callback<Response>() {
+        Call<Void> call = talentDonationService.signUp(signUpItem.getUuid(), signUpItem.getName());
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                if(response.code() == OK){
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                int status = response.code();
+                Log.d("STATUS", "STATUS: " + status);
+                if(status == OK){
                     PropertyManager.getInstance().setUserName(signUpItem.getName());
                     login(signUpItem);
                 }else{
@@ -68,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("ERROR", t.getLocalizedMessage());
             }
         });
@@ -76,11 +84,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void login(SignUpItem signUpItem){
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
-        Call<Response> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
-        call.enqueue(new Callback<Response>() {
+        Call<Void> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                if(response.code() == OK){
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                int status = response.code();
+                if(status == 200){
                     Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -90,7 +99,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("ERROR", t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void deleteUser(String uuid){
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
+        Call<Void> call = talentDonationService.delete(uuid);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                if(response.code() == 200){
+                    PropertyManager.getInstance().setUserName("");
+                    PropertyManager.getInstance().setUuid("");
+                    Toast.makeText(MidasApplication.getContext(), "삭제완료", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MidasApplication.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("ERROR", t.getLocalizedMessage());
             }
         });

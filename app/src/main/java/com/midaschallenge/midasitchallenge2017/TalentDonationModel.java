@@ -13,6 +13,7 @@ import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,11 +33,18 @@ public class TalentDonationModel {
         return new PersistentCookieJar(new SetCookieCache(), cookiePersistor);
     }
 
+    private static HttpLoggingInterceptor provideLoggingInterceptor() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return loggingInterceptor;
+    }
 
-    private static OkHttpClient provideOkHttpClient(ClearableCookieJar cookieJar) {
+
+
+    private static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor, ClearableCookieJar cookieJar) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(loggingInterceptor);
         builder.cookieJar(cookieJar);
-
         return builder.build();
     }
 
@@ -45,7 +53,7 @@ public class TalentDonationModel {
             instance = new Retrofit.Builder()
                     .baseUrl("http://192.168.0.22:5000/rest/v0.1/")
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(provideOkHttpClient(provideClearableCookieJar(context)))
+                    .client(provideOkHttpClient(provideLoggingInterceptor(), provideClearableCookieJar(context)))
                     .build()
                     .create(TalentDonationService.class);
         return instance;

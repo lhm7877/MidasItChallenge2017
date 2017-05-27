@@ -6,10 +6,12 @@ import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
 * Created by Hooo on 2017-05-27.
@@ -21,11 +23,11 @@ public interface TalentDonationService {
 
     @FormUrlEncoded
     @POST("users/sign_up")
-    Call<Response> signUp(@Field("uuid") String uuid, @Field("name") String name);
+    Call<Void> signUp(@Field("uuid") String uuid, @Field("name") String name);
 
     @FormUrlEncoded
     @POST("users/login")
-    Call<Response> login(@Field("uuid") String uuid, @Field("name") String name);
+    Call<Void> login(@Field("uuid") String uuid, @Field("name") String name);
 
     @POST("/test_list")
     Call<TalentDonationDTO> updateTalentDonation(
@@ -34,4 +36,7 @@ public interface TalentDonationService {
             @Field("contents") Long startDate,
             @Field("contents") Long endDate
     );
+
+    @DELETE("users/user/{uuid}")
+    Call<Void> delete(@Path("uuid") String uuid);
 }

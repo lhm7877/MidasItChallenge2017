@@ -12,27 +12,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.SignUpItem;
 
 import java.util.UUID;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class SplashActivity extends AppCompatActivity {
+    private final int OK = 201;
     private final int SPLASH_DELAY_TIME = 1500;
     private final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 1000;
     private String Uuid;
-    private String name;
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if(PropertyManager.getInstance().getUuid().equals("") && PropertyManager.getInstance().getUserName().equals("")){
-//                SignUpItem signUpItem = new SignUpItem();
-//                signUpItem.setName(P);
-                Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+            Log.d("LOG", "UUID: " + PropertyManager.getInstance().getUuid()+ " " + "NAME" + PropertyManager.getInstance().getUserName());
+            if(!PropertyManager.getInstance().getUuid().equals("") && !PropertyManager.getInstance().getUserName().equals("")){
+                SignUpItem signUpItem = new SignUpItem();
+                signUpItem.setName(PropertyManager.getInstance().getUserName());
+                signUpItem.setUuid(PropertyManager.getInstance().getUuid());
+                login(signUpItem);
             }else{
                 Intent intent = new Intent(MidasApplication.getContext(), SignUpActivity.class);
                 startActivity(intent);
@@ -98,5 +103,27 @@ public class SplashActivity extends AppCompatActivity {
         Uuid = GetDevicesUUID(MidasApplication.getContext());
         PropertyManager.getInstance().setUuid(Uuid);
         handler.postDelayed(runnable, SPLASH_DELAY_TIME);
+    }
+
+    private void login(SignUpItem signUpItem){
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
+        Call<Void> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                if(response.code() == OK){
+                    Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(MidasApplication.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("ERROR", t.getLocalizedMessage());
+            }
+        });
     }
 }

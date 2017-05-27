@@ -43,8 +43,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnTouchLi
 
     private void setProfileViewPager(ViewPager viewPager){
         profileViewPagerAdapter.addProfileFragment(MyTalentRequestFragment.newInstance(), getResources().getString(R.string.profile_tab_1));
-        profileViewPagerAdapter.addProfileFragment(MyTalentFragment.newInstance(), getResources().getString(R.string.profile_tab_1));
-        profileViewPagerAdapter.addProfileFragment(MyPointFragment.newInstance(), getResources().getString(R.string.profile_tab_2));
+        profileViewPagerAdapter.addProfileFragment(MyTalentFragment.newInstance(), getResources().getString(R.string.profile_tab_2));
+        profileViewPagerAdapter.addProfileFragment(MyPointFragment.newInstance(), getResources().getString(R.string.profile_tab_3));
         viewPager.setAdapter(profileViewPagerAdapter);
     }
 
