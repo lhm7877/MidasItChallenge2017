@@ -9,59 +9,74 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center_horizontal">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:id="@+id/profile_user_image"
-                android:src="@drawable/user_image"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="6"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
-            <TextView
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
-                android:id="@+id/profile_user_name_txt"
-                android:layout_marginBottom="10dp"/>
+                android:gravity="center_horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_user_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/user_image" />
+            </LinearLayout>
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/profile_user_name_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="현재 포인트 7777 사용하기"
-                    android:id="@+id/profile_user_point_txt"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="User Name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_user_point_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="현재 포인트 7777 사용하기" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lc_profile"
+            android:layout_marginTop="16dp"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="150dp"></com.github.mikephil.charting.charts.LineChart>
     </LinearLayout>
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lc_profile"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"></com.github.mikephil.charting.charts.LineChart>
+
     <android.support.v4.view.ViewPager
+        android:id="@+id/profile_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/profile_viewpager">
+        android:layout_height="match_parent">
+
         <android.support.design.widget.TabLayout
+            android:id="@+id/profile_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profile_tab_layout"
-            app:tabTextColor="#000000">
-        </android.support.design.widget.TabLayout>
+            app:tabTextColor="#000000"></android.support.design.widget.TabLayout>
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

@@ -9,14 +9,24 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.midaschallenge.midasitchallenge2017.dto.MyPointHistoryItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +54,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private String userName;
 
+    private ArrayList<MyPointHistoryItem> myPointHistoryItems;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +74,51 @@ public class ProfileActivity extends AppCompatActivity {
         profileViewPagerAdapter = new ProfileViewPagerAdapter(fragmentManager);
         profileTabLayout.setupWithViewPager(profileViewPager);
         setProfileViewPager(profileViewPager);
+        callMyPointHistory();
+    }
+
+    private void callMyPointHistory() {
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+        Call<ArrayList<MyPointHistoryItem>> call = talentDonationService.callMyPointHistory();
+        call.enqueue(new Callback<ArrayList<MyPointHistoryItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MyPointHistoryItem>> call, Response<ArrayList<MyPointHistoryItem>> response) {
+                if(response.isSuccessful()){
+                    myPointHistoryItems = response.body();
+
+                    ArrayList<String> labels = new ArrayList<String>();
+                    ArrayList<Entry> entries = new ArrayList<Entry>();
+
+
+                    for(int i =0; i<myPointHistoryItems.size(); i++){
+                        Calendar startCalendar = Calendar.getInstance();
+                        startCalendar.setTimeInMillis(myPointHistoryItems.get(i).getDate()*1000);
+
+                        labels.add(startCalendar.get(Calendar.YEAR)+"."+(startCalendar.get(Calendar.MONTH)+1)
+                                +"."+startCalendar.get(Calendar.DAY_OF_MONTH));
+                        entries.add(new Entry(myPointHistoryItems.get(i).getPoint(),i));
+                    }
+
+                    LineDataSet lineDataSet = new LineDataSet(entries,"차트");
+                    lineDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    lineDataSet.setDrawCircles(true);
+                    lineDataSet.setDrawFilled(false);
+
+                    ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                    dataSets.add(lineDataSet);
+
+                    LineData lineData = new LineData(dataSets);
+                    lc_profile.setData(lineData);
+                    lc_profile.animateXY(2000,2000);
+                    lc_profile.invalidate();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MyPointHistoryItem>> call, Throwable t) {
+
+            }
+        });
 
     }
 
