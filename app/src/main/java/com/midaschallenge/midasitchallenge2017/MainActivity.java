@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
 
+import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;

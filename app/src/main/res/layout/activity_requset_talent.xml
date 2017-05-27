@@ -10,15 +10,63 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="16dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="프로젝트 제목"/>
+
         <EditText
+            android:id="@+id/etv_request_title"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_start_date"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:text="시작 날짜"/>
+            <Button
+                android:id="@+id/btn_start_time"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:text="시작 시간"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_end_date"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:text="종료 날짜"/>
+            <Button
+                android:id="@+id/btn_end_time"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:text="종료 시간"/>
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,9 +74,34 @@
             android:textSize="20sp"
             android:text="프로젝트 내용"/>
         <EditText
+            android:id="@+id/etv_request_contents"
             android:textSize="15sp"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp"
+            android:gravity="top"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btn_request_cancel"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="취소"
+                android:textSize="20sp"/>
+            <Button
+                android:id="@+id/btn_request_accept"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="확인"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
