@@ -111,7 +111,6 @@
 
     <Button
         android:id="@+id/btn_talent_request"
-        android:background="@color/colorPrimary"
         android:text="참가신청"
         android:layout_width="match_parent"
         android:layout_height="70dp" />

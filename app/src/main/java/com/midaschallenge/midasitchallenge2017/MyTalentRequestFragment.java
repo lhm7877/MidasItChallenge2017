@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +69,14 @@ public class MyTalentRequestFragment extends Fragment{
             MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
             holder.myTalentRequestItemTitle.setText(myTalentRequestItem.getTitle());
             holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContents());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(myTalentRequestItem.getStart_at()*1000);
+            holder.start_at.setText(new DateFormat().setDateFormat("EEE MMM d hh:mm:ss O yyyy","yyyy.mm.dd",String.valueOf(myTalentRequestItem.getStart_at()*1000)));
+            calendar.setTimeInMillis(myTalentRequestItem.getEnd_at()*1000);
+            holder.end_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.setTimeInMillis(myTalentRequestItem.getReq_at());
+            holder.req_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
+            Log.d("data", String.valueOf(new Date(myTalentRequestItem.getReq_at())));
         }
 
         @Override
@@ -74,12 +85,15 @@ public class MyTalentRequestFragment extends Fragment{
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            private TextView myTalentRequestItemTitle, myTalentRequestItemContent;
+            private TextView myTalentRequestItemTitle, myTalentRequestItemContent, start_at, end_at, req_at;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 myTalentRequestItemTitle = (TextView) itemView.findViewById(R.id.my_talent_request_item_title);
                 myTalentRequestItemContent = (TextView) itemView.findViewById(R.id.my_talent_request_item_content);
+                start_at = (TextView) itemView.findViewById(R.id.start_at);
+                end_at = (TextView) itemView.findViewById(R.id.end_at);
+                req_at = (TextView) itemView.findViewById(R.id.req_at);
             }
         }
 

@@ -19,6 +19,8 @@ public class TalentRecyclerviewViewHolder extends RecyclerView.ViewHolder {
     protected TextView tv_item_title;
     @BindView(R.id.tv_item_contents)
     protected TextView tv_item_contents;
+    @BindView(R.id.requester)
+    protected TextView requester;
 
     public TalentRecyclerviewViewHolder(View itemView) {
         super(itemView);

@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     app:cardBackgroundColor="#ffffff"
-    android:layout_margin="16dp">
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
     <LinearLayout
         android:id="@+id/ll_item_talent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
     <TextView
         android:id="@+id/tv_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="title"
+        android:textSize="15sp"
+        android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/tv_item_contents"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:text="개발을 하고싶은데 가르쳐줄 사람 있나요 도와주세요~~~~개발을 하고싶은데 가르쳐줄 사람 있나요 도와주세요~~~~"
+        android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="요청자"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="천보경"
+                android:id="@+id/requester"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 

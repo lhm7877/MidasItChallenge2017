@@ -46,6 +46,7 @@ public class TalentRecyclerViewAdapter extends RecyclerView.Adapter<TalentRecycl
         });
         holder.tv_item_title.setText(talentDonationDTO.getTitle());
         holder.tv_item_contents.setText(talentDonationDTO.getContents());
+        holder.requester.setText(talentDonationDTO.getName());
 
     }
 

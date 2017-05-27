@@ -16,6 +16,7 @@ import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +36,8 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
     protected TextView tv_talent_contents;
     @BindView(R.id.btn_talent_request)
     protected Button btn_talent_request;
+    @BindView(R.id.profile_user_image)
+    protected CircleImageView profileUserImage;
 
     private TalentDonationDTO talentDonationDTO;
     @Override
@@ -54,6 +57,10 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         tv_talent_req_at.setText(String.valueOf(talentDonationDTO.getReq_at()));
         tv_talent_end_at.setText(String.valueOf(talentDonationDTO.getEnd_at()));
         tv_talent_contents.setText(talentDonationDTO.getContents());
+
+        Glide.with(this).load("http://192.168.0.22:5000/rest/v0.1/users/profile/"+talentDonationDTO.getId())
+                .apply(new RequestOptions().error(R.drawable.user_image))
+                .into(profileUserImage);
 
         if(talentDonationDTO.isCompleted()){
             btn_talent_request.setText("참가 완료");
