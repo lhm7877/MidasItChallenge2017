@@ -34,7 +34,7 @@ public class TalentRecyclerViewAdapter extends RecyclerView.Adapter<TalentRecycl
     @Override
     public void onBindViewHolder(TalentRecyclerviewViewHolder holder, int position) {
         holder.tv_item_title.setText(mTalentDonationDTOs.get(position).getTitle());
-        holder.tv_item_contents.setText(mTalentDonationDTOs.get(position).getContent());
+        holder.tv_item_contents.setText(mTalentDonationDTOs.get(position).getContents());
     }
 
     @Override

@@ -7,29 +7,37 @@ package com.midaschallenge.midasitchallenge2017.dto;
 public class TalentDonationDTO {
     private int id;
     private String title;
-    private String content;
-    private long startDate;
-    private long endDate;
+    private String contents;
+    private long start_at;
+    private long end_at;
 
     public TalentDonationDTO(String title, String content) {
         this.title = title;
-        this.content = content;
+        this.contents = content;
     }
 
-    public long getStartDate() {
-        return startDate;
+    public String getContents() {
+        return contents;
     }
 
-    public void setStartDate(long startDate) {
-        this.startDate = startDate;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
-    public long getEndDate() {
-        return endDate;
+    public long getStart_at() {
+        return start_at;
     }
 
-    public void setEndDate(long endDate) {
-        this.endDate = endDate;
+    public void setStart_at(long start_at) {
+        this.start_at = start_at;
+    }
+
+    public long getEnd_at() {
+        return end_at;
+    }
+
+    public void setEnd_at(long end_at) {
+        this.end_at = end_at;
     }
 
     public int getId() {
@@ -46,13 +54,5 @@ public class TalentDonationDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

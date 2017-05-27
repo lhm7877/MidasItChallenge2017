@@ -7,7 +7,7 @@ package com.midaschallenge.midasitchallenge2017.dto;
 public class MyTalentRequestItem {
     private int id;
     private String title;
-    private String content;
+    private String contents;
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class MyTalentRequestItem {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getContents() {
+        return contents;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 }
