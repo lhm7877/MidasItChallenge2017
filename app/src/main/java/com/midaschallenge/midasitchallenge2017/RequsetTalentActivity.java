@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -146,7 +147,6 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
 
     private void uploadReqeust() {
-        Log.i("calendat!!!!", String.valueOf(startCalendar.getTimeInMillis()));
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<Void> call = talentDonationService.updateTalentDonation(
                 etv_request_title.getText().toString(),//제목

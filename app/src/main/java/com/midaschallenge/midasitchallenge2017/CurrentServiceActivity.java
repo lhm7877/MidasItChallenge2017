@@ -16,6 +16,10 @@ import com.midaschallenge.midasitchallenge2017.dto.CurrentServiceItem;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CurrentServiceActivity extends AppCompatActivity {
     private RecyclerView currentServiceRecyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -26,15 +30,12 @@ public class CurrentServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_service);
+        callCurrentServiceRequestList();
         currentServiceRecyclerView = (RecyclerView) findViewById(R.id.current_service_rv);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         currentServiceAdapter = new CurrentServiceAdapter(this);
         currentServiceRecyclerView.setLayoutManager(linearLayoutManager);
         currentServiceRecyclerView.setAdapter(currentServiceAdapter);
-        for(int i = 1; i <= 20; i++){
-            items.add(new CurrentServiceItem());
-        }
-        currentServiceAdapter.addItems(items);
     }
 
     private class CurrentServiceAdapter extends RecyclerView.Adapter<CurrentServiceAdapter.ViewHolder>{
@@ -53,12 +54,13 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            CurrentServiceItem currentServiceItem = currentServiceItems.get(position);
+            final CurrentServiceItem currentServiceItem = currentServiceItems.get(position);
             holder.currentServiceItemContent.setText("현재 AA 나눔재단에서 나눔사업 진행중입니다");
             holder.currentServiceItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, PointUseActivity.class);
+                    intent.putExtra("CurrentServiceItem",currentServiceItem);
                     startActivity(intent);
                 }
             });
@@ -84,5 +86,24 @@ public class CurrentServiceActivity extends AppCompatActivity {
             currentServiceItems.addAll(items);
             notifyDataSetChanged();
         }
+    }
+
+    private void callCurrentServiceRequestList(){
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+        Call<ArrayList<CurrentServiceItem>> call = talentDonationService.cuArrayListCall();
+        call.enqueue(new Callback<ArrayList<CurrentServiceItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CurrentServiceItem>> call, Response<ArrayList<CurrentServiceItem>> response) {
+                if(response.isSuccessful()){
+                    items = response.body();
+                    currentServiceAdapter.addItems(items);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CurrentServiceItem>> call, Throwable t) {
+
+            }
+        });
     }
 }

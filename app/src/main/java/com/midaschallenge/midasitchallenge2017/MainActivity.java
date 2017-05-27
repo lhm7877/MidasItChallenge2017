@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     talentDonationDTOs = response.body();
                     talentRecyclerViewAdapter = new TalentRecyclerViewAdapter(MainActivity.this,talentDonationDTOs);
                     rv_talentDonationList.setAdapter(talentRecyclerViewAdapter);
+                    talentRecyclerViewAdapter.notifyDataSetChanged();
                 }
             }
 

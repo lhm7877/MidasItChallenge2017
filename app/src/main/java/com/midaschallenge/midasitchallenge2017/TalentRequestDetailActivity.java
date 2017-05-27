@@ -59,7 +59,7 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(talentDonationDTO.getStart_at()*1000);
 
-        tv_talent_start_at.setText(calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
+        tv_talent_start_at.setText(calendar.get(Calendar.YEAR)+"."+(calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.DAY_OF_MONTH));
         tv_talent_end_at.setText(String.valueOf(talentDonationDTO.getEnd_at()));
         tv_talent_contents.setText(talentDonationDTO.getContents());
 
