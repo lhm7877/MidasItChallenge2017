@@ -30,7 +30,8 @@ public interface TalentDonationService {
     @POST("/test_list")
     Call<TalentDonationDTO> updateTalentDonation(
             @Field("title") String title,
-            @Field("contents") String contents
-
+            @Field("contents") String contents,
+            @Field("contents") Long startDate,
+            @Field("contents") Long endDate
     );
 }
