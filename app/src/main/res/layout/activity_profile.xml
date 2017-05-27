@@ -43,11 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="현재 포인트"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7777"
+                    android:text="현재 포인트 7777 사용하기"
                     android:id="@+id/profile_user_point_txt"/>
             </LinearLayout>
         </LinearLayout>

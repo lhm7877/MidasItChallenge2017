@@ -3,6 +3,7 @@
     package="com.midaschallenge.midasitchallenge2017">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".MidasApplication"
@@ -11,19 +12,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".CurrentServiceActivity" />
+        <activity android:name=".RequsetTalentActivity" />
+        <activity android:name=".PointUseActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".CurrentServiceActivity"></activity>
-        <activity android:name=".RequsetTalentActivity"></activity>
+        <activity android:name=".SignUpActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>
