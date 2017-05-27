@@ -3,6 +3,7 @@ package com.midaschallenge.midasitchallenge2017;
 import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
 import com.midaschallenge.midasitchallenge2017.dto.CurrentServiceItem;
 import com.midaschallenge.midasitchallenge2017.dto.DonationItem;
+import com.midaschallenge.midasitchallenge2017.dto.MyPointHistoryItem;
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 import com.midaschallenge.midasitchallenge2017.dto.UserItem;
@@ -76,4 +77,7 @@ public interface TalentDonationService {
     @FormUrlEncoded
     @PUT("talent/donate_point")
     Call<Void> donatePoint(@Field("place_id") int id,@Field("point") int point);
+
+    @GET("users/point_history")
+    Call<ArrayList<MyPointHistoryItem>> callMyPointHistory();
 }
