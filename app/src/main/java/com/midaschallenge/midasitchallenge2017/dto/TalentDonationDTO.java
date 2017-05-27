@@ -1,4 +1,4 @@
-package com.midaschallenge.midasitchallenge2017;
+package com.midaschallenge.midasitchallenge2017.dto;
 
 /**
  * Created by Hooo on 2017-05-27.

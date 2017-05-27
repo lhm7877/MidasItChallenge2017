@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.midaschallenge.midasitchallenge2017.MainActivity">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fbtn_add_request_talent_donation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -43,7 +43,8 @@
         android:id="@+id/rv_main_talent_donation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="60dp">
+    </android.support.v7.widget.RecyclerView>
 
 
 </android.support.design.widget.CoordinatorLayout>
