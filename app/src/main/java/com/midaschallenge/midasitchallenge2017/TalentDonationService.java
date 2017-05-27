@@ -73,6 +73,7 @@ public interface TalentDonationService {
     @GET("users/donations")
     Call<ArrayList<DonationItem>> getDonations();
 
+    @FormUrlEncoded
     @PUT("talent/donate_point")
-    Call<Void> donatePoint(@Path("place_id") int id,@Path("point") int point);
+    Call<Void> donatePoint(@Field("place_id") int id,@Field("point") int point);
 }

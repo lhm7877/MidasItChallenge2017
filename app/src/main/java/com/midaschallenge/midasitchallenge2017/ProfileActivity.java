@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected ViewPager profileViewPager;
     @BindView(R.id.profile_user_point_txt)
     protected TextView profile_user_point_txt;
+    @BindView(R.id.lc_profile)
+    protected LineChart lc_profile;
+
     private ProfileViewPagerAdapter profileViewPagerAdapter;
     private FragmentManager fragmentManager;
     private String userName;
