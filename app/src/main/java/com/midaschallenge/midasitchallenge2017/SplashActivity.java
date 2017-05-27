@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.SignUpItem;
+import com.midaschallenge.midasitchallenge2017.dto.UserItem;
 
 import java.util.UUID;
 
@@ -107,11 +108,15 @@ public class SplashActivity extends AppCompatActivity {
 
     private void login(SignUpItem signUpItem){
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
-        Call<Void> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
-        call.enqueue(new Callback<Void>() {
+        Call<UserItem> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
+        call.enqueue(new Callback<UserItem>() {
             @Override
-            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+            public void onResponse(Call<UserItem> call, retrofit2.Response<UserItem> response) {
                 if(response.code() == 200){
+                    PropertyManager.getInstance().setUserName(response.body().getName());
+                    PropertyManager.getInstance().setUuid(response.body().getUuid());
+                    PropertyManager.getInstance().setUserID(response.body().getId());
+                    PropertyManager.getInstance().setUserPoint(response.body().getPoint());
                     Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -121,7 +126,7 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<UserItem> call, Throwable t) {
                 Log.d("ERROR", t.getLocalizedMessage());
             }
         });
