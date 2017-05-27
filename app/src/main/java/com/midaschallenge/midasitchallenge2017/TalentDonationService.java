@@ -1,13 +1,9 @@
 package com.midaschallenge.midasitchallenge2017;
 
 import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
-<<<<<<< HEAD
-import com.midaschallenge.midasitchallenge2017.dto.DonationItem;
-=======
 import com.midaschallenge.midasitchallenge2017.dto.CurrentServiceItem;
->>>>>>> 2c1b9757f6d49761d581d5b3d65b8797bc589d26
+import com.midaschallenge.midasitchallenge2017.dto.DonationItem;
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
-import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 import com.midaschallenge.midasitchallenge2017.dto.UserItem;
 
