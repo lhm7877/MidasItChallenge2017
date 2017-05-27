@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MidasItChallenge2017</string>
-
+    <string name="profile_tab_1">봉사활동 내역</string>
+    <string name="profile_tab_2">포인트사용 내역</string>
+    <string name="current_service">현재 진행 중인 나눔재단 사업입니다. 원하는 사업에 기부해보세요</string>
     <string name="action_settings">Settings</string>
 </resources>
