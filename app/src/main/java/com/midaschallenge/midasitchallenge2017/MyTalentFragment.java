@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +74,7 @@ public class MyTalentFragment extends Fragment {
             CompletedItem completedItem = completedItems.get(position);
             holder.myTalentActivityItemTitle.setText(completedItem.getTitle());
             holder.myTalentActivityItemContent.setText(completedItem.getContent());
+            holder.complete_date.setText(String.valueOf(new Date(completedItem.getCompleted_at())));
         }
 
         @Override
@@ -82,11 +84,12 @@ public class MyTalentFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            private TextView myTalentActivityItemTitle, myTalentActivityItemContent;
+            private TextView myTalentActivityItemTitle, myTalentActivityItemContent,complete_date;
             public ViewHolder(View itemView) {
                 super(itemView);
                 myTalentActivityItemTitle = (TextView) itemView.findViewById(R.id.my_talent_item_title);
                 myTalentActivityItemContent = (TextView) itemView.findViewById(R.id.my_talent_item_content);
+                complete_date = (TextView) itemView.findViewById(R.id.complete_date);
             }
         }
 

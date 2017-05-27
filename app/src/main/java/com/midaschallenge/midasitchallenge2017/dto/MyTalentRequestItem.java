@@ -6,13 +6,14 @@ package com.midaschallenge.midasitchallenge2017.dto;
 
 public class MyTalentRequestItem {
     private int id;
+    private int user_id;
     private String title;
     private String contents;
-    private int user_id;
     private boolean completed;
     private long req_at;
     private long start_at;
     private long end_at;
+    private String completed_at;
 
     public int getId() {
         return id;
@@ -20,6 +21,14 @@ public class MyTalentRequestItem {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getTitle() {
@@ -38,14 +47,6 @@ public class MyTalentRequestItem {
         this.contents = contents;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
     public boolean isCompleted() {
         return completed;
     }
@@ -53,7 +54,6 @@ public class MyTalentRequestItem {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-
 
     public long getReq_at() {
         return req_at;
@@ -77,5 +77,13 @@ public class MyTalentRequestItem {
 
     public void setEnd_at(long end_at) {
         this.end_at = end_at;
+    }
+
+    public String getCompleted_at() {
+        return completed_at;
+    }
+
+    public void setCompleted_at(String completed_at) {
+        this.completed_at = completed_at;
     }
 }

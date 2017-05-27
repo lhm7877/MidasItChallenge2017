@@ -146,6 +146,7 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
 
     private void uploadReqeust() {
+        Log.i("calendat!!!!", String.valueOf(startCalendar.getTimeInMillis()));
         TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<Void> call = talentDonationService.updateTalentDonation(
                 etv_request_title.getText().toString(),//제목

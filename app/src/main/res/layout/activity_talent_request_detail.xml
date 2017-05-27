@@ -103,18 +103,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/tv_talent_contents"
-        android:textSize="30sp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_talent_request">
+            <TextView
+                android:id="@+id/tv_talent_contents"
+                android:textSize="30sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
 
-    <Button
-        android:id="@+id/btn_talent_request"
-        android:text="참가신청"
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
+        <Button
+            android:id="@+id/btn_talent_request"
+            android:text="참가신청"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
 
+    </RelativeLayout>
 
 
 </LinearLayout>
