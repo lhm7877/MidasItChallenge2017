@@ -8,7 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -16,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.profile_user_image)
@@ -35,6 +43,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        Glide.with(MidasApplication.getContext())
+                .load("http://192.168.0.22:5000/rest/v0.1/users/profile/"+PropertyManager.getInstance().getUserId())
+                .apply(new RequestOptions().error(R.drawable.user_image)).into(profileUserImage);
         userName = PropertyManager.getInstance().getUserName();
         if(!userName.equals("")){
             profileUserName.setText(userName);

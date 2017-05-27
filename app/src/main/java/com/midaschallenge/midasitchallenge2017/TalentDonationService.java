@@ -1,5 +1,6 @@
 package com.midaschallenge.midasitchallenge2017;
 
+import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
@@ -52,5 +53,8 @@ public interface TalentDonationService {
     @Multipart
     @POST("users/profile")
     Call<Void> uploadUserImage(@Part MultipartBody.Part profile);
+
+    @GET("talent/completed")
+    Call<ArrayList<CompletedItem>> getCompleted();
 
 }

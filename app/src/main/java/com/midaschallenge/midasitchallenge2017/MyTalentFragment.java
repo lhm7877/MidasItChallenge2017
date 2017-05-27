@@ -11,14 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.midaschallenge.midasitchallenge2017.dto.TalentItem;
+import com.midaschallenge.midasitchallenge2017.dto.CompletedItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by bo on 2017. 5. 27..
@@ -29,7 +32,7 @@ public class MyTalentFragment extends Fragment {
     protected RecyclerView myTalentRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private MyTalentActivityAdapter myTalentActivityAdapter;
-    private ArrayList<TalentItem> items = new ArrayList<>();
+    private ArrayList<CompletedItem> items = new ArrayList<>();
 
 
     public static MyTalentFragment newInstance(){
@@ -45,16 +48,14 @@ public class MyTalentFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(MidasApplication.getContext(),LinearLayoutManager.VERTICAL,false);
         myTalentRecyclerView.setLayoutManager(linearLayoutManager);
         myTalentRecyclerView.setAdapter(myTalentActivityAdapter);
-        for(int i = 1; i <= 10; i++){
-            items.add(new TalentItem());
-        }
         myTalentActivityAdapter.addItems(items);
+        getCompleted();
         return view;
     }
 
 
     private class MyTalentActivityAdapter extends RecyclerView.Adapter<MyTalentActivityAdapter.ViewHolder>{
-        private ArrayList<TalentItem> talentItems = new ArrayList<>();
+        private ArrayList<CompletedItem> completedItems = new ArrayList<>();
         private Context context;
 
         public MyTalentActivityAdapter(Context context) {
@@ -69,15 +70,15 @@ public class MyTalentFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            TalentItem talentItem = talentItems.get(position);
-            holder.myTalentActivityItemTitle.setText("tltle");
-            holder.myTalentActivityItemContent.setText("content");
+            CompletedItem completedItem = completedItems.get(position);
+            holder.myTalentActivityItemTitle.setText(completedItem.getTitle());
+            holder.myTalentActivityItemContent.setText(completedItem.getContent());
         }
 
         @Override
         public int getItemCount() {
-            Log.d("datasize", "data size: "+talentItems.size());
-            return talentItems.size();
+            Log.d("datasize", "data size: "+completedItems.size());
+            return completedItems.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,10 +90,45 @@ public class MyTalentFragment extends Fragment {
             }
         }
 
-        public void addItems(ArrayList<TalentItem> items){
-            talentItems.addAll(items);
+        public void addItems(ArrayList<CompletedItem> items){
+            completedItems.addAll(items);
             notifyDataSetChanged();
         }
+    }
+
+    private void getCompleted(){
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+        Call<ArrayList<CompletedItem>> call = talentDonationService.getCompleted();
+        call.enqueue(new Callback<ArrayList<CompletedItem>>(){
+            @Override
+            public void onResponse(Call<ArrayList<CompletedItem>> call, Response<ArrayList<CompletedItem>> response) {
+                int status = response.code();
+                if(status == 200){
+                    int length = response.body().size();
+                    for(int i = 0; i< length; i++){
+                        CompletedItem completedItem = new CompletedItem();
+                        completedItem.setCompleted_at(response.body().get(i).getCompleted_at());
+                        completedItem.setContributor_id(response.body().get(i).getContributor_id());
+                        completedItem.setId(response.body().get(i).getId());
+                        completedItem.setTalent_id(response.body().get(i).getTalent_id());
+                        completedItem.setTitle(response.body().get(i).getTitle());
+                        completedItem.setContent(response.body().get(i).getContent());
+                        items.add(completedItem);
+                    }
+                    myTalentActivityAdapter.addItems(items);
+                }else if(status == 401){
+
+                }else {
+                    Toast.makeText(MidasApplication.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CompletedItem>> call, Throwable t) {
+                Log.d("ERROR", t.getLocalizedMessage());
+            }
+        });
+
     }
 
 }
