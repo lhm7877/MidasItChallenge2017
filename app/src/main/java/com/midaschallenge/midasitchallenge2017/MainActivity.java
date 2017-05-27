@@ -35,9 +35,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        init();
         Log.d("DATA", "name: " + PropertyManager.getInstance().getUserName()+" " +"uuid: "+PropertyManager.getInstance().getUuid()+" "+
         "id: "+PropertyManager.getInstance().getUserId()+" "+"point: " + PropertyManager.getInstance().getUserPoint());
+    }
+
+    protected void onResume() {
+        super.onResume();
+        init();
     }
 
     private void init() {
