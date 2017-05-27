@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
 
-
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

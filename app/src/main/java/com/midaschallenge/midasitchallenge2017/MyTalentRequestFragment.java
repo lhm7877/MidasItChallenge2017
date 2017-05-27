@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
+import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by bo on 2017. 5. 27..
@@ -32,15 +37,18 @@ public class MyTalentRequestFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.from(MidasApplication.getContext()).inflate(R.layout.fragment_my_talent_request, container, false);
+
+        callTalentRequestList();
+
         myTalentRequestRecyclerView = (RecyclerView) view.findViewById(R.id.my_talent_request_rv);
         linearLayoutManager = new LinearLayoutManager(MidasApplication.getContext(), LinearLayoutManager.VERTICAL, false);
         myTalentRequestAdapter = new MyTalentRequestAdapter();
         myTalentRequestRecyclerView.setLayoutManager(linearLayoutManager);
         myTalentRequestRecyclerView.setAdapter(myTalentRequestAdapter);
-        for(int i = 1; i <= 10; i++){
-            items.add(new MyTalentRequestItem());
-        }
-        myTalentRequestAdapter.addItems(items);
+//        for(int i = 1; i <= 10; i++){
+//            items.add(new MyTalentRequestItem());
+//        }
+//        myTalentRequestAdapter.addItems(items);
         return view;
     }
 
@@ -56,8 +64,8 @@ public class MyTalentRequestFragment extends Fragment{
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
-            holder.myTalentRequestItemTitle.setText("재능 요청 내역 제목입니다");
-            holder.myTalentRequestItemContent.setText("재능 요청 내역 컨텐츠 부분입니다");
+            holder.myTalentRequestItemTitle.setText(myTalentRequestItem.getTitle());
+            holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContent());
         }
 
         @Override
@@ -79,6 +87,24 @@ public class MyTalentRequestFragment extends Fragment{
             myTalentRequestItems.addAll(items);
             notifyDataSetChanged();
         }
+    }
+
+    private void callTalentRequestList(){
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+        Call<ArrayList<MyTalentRequestItem>> call = talentDonationService.myTalentRequestList();
+        call.enqueue(new Callback<ArrayList<MyTalentRequestItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MyTalentRequestItem>> call, Response<ArrayList<MyTalentRequestItem>> response) {
+                if(response.isSuccessful()){
+                    items = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MyTalentRequestItem>> call, Throwable t) {
+
+            }
+        });
     }
 }
 
