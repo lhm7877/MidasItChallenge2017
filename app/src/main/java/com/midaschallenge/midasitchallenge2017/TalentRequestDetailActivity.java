@@ -62,13 +62,18 @@ public class TalentRequestDetailActivity extends AppCompatActivity {
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.setTimeInMillis(talentDonationDTO.getEnd_at()*1000);
 
+        Calendar reqCalendar = Calendar.getInstance();
+        reqCalendar.setTimeInMillis(talentDonationDTO.getReq_at()*1000);
+
         tv_talent_start_at.setText(startCalendar.get(Calendar.YEAR)+"."+(startCalendar.get(Calendar.MONTH)+1)
                 +"."+startCalendar.get(Calendar.DAY_OF_MONTH)+"."+startCalendar.get(Calendar.HOUR)
                 +"."+startCalendar.get(Calendar.MINUTE));
         tv_talent_end_at.setText(endCalendar.get(Calendar.YEAR)+"."+(endCalendar.get(Calendar.MONTH)+1)
                 +"."+endCalendar.get(Calendar.DAY_OF_MONTH)+"."+endCalendar.get(Calendar.HOUR)
                 +"."+endCalendar.get(Calendar.MINUTE));
-        tv_talent_contents.setText(talentDonationDTO.getContents());
+        tv_talent_contents.setText(reqCalendar.get(Calendar.YEAR)+"."+(reqCalendar.get(Calendar.MONTH)+1)
+                +"."+reqCalendar.get(Calendar.DAY_OF_MONTH)+"."+reqCalendar.get(Calendar.HOUR)
+                +"."+reqCalendar.get(Calendar.MINUTE));
 
         if(talentDonationDTO.isCompleted()){
             btn_talent_request.setText("참가 완료");
