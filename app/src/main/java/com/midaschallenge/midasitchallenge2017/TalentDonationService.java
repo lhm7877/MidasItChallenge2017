@@ -1,5 +1,6 @@
 package com.midaschallenge.midasitchallenge2017;
 
+import com.midaschallenge.midasitchallenge2017.dto.MyTalentRequestItem;
 import com.midaschallenge.midasitchallenge2017.dto.Response;
 import com.midaschallenge.midasitchallenge2017.dto.TalentDonationDTO;
 
@@ -18,8 +19,11 @@ import retrofit2.http.Path;
 */
 public interface TalentDonationService {
 
-    @GET("/users/test_list")
+    @GET("talent/req_donation")
     Call<ArrayList<TalentDonationDTO>> talentDonationList();
+
+    @GET("talent/my_requests")
+    Call<ArrayList<MyTalentRequestItem>> myTalentRequestList();
 
     @FormUrlEncoded
     @POST("users/sign_up")
@@ -29,12 +33,12 @@ public interface TalentDonationService {
     @POST("users/login")
     Call<Void> login(@Field("uuid") String uuid, @Field("name") String name);
 
-    @POST("/test_list")
+    @POST("talent/req_donation")
     Call<TalentDonationDTO> updateTalentDonation(
             @Field("title") String title,
             @Field("contents") String contents,
-            @Field("contents") Long startDate,
-            @Field("contents") Long endDate
+            @Field("start_at") Long startDate,
+            @Field("end_at") Long endDate
     );
 
     @DELETE("users/user/{uuid}")

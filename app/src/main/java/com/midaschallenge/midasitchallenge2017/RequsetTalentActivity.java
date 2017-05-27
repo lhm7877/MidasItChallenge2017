@@ -59,7 +59,7 @@ public class RequsetTalentActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_request_accept)
     void clickRequestAccept() {
-        uploadReqeust();
+        uploadReqeust();finish();
     }
 
     @OnClick(R.id.btn_request_cancel)
