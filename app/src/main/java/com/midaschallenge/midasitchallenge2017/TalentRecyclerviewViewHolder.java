@@ -9,8 +9,8 @@ import android.widget.TextView;
  */
 
 public class TalentRecyclerviewViewHolder extends RecyclerView.ViewHolder {
-    private TextView tv_item_title;
-    private TextView tv_item_contents;
+    public TextView tv_item_title;
+    public TextView tv_item_contents;
     public TalentRecyclerviewViewHolder(View itemView) {
         super(itemView);
 
