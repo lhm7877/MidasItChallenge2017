@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signUp(final SignUpItem signUpItem){
-        TalentDonationService talentDonationService = TalentDonationService.retrofit.create(TalentDonationService.class);
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<Response> call = talentDonationService.signUp(signUpItem.getUuid(), signUpItem.getName());
         call.enqueue(new Callback<Response>() {
             @Override
@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void login(SignUpItem signUpItem){
-        TalentDonationService talentDonationService = TalentDonationService.retrofit.create(TalentDonationService.class);
+        TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(this);
         Call<Response> call = talentDonationService.login(signUpItem.getUuid(), signUpItem.getName());
         call.enqueue(new Callback<Response>() {
             @Override

@@ -14,17 +14,22 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.midaschallenge.midasitchallenge2017.dto.SignUpItem;
+
 import java.util.UUID;
 
 public class SplashActivity extends AppCompatActivity {
     private final int SPLASH_DELAY_TIME = 1500;
     private final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 1000;
     private String Uuid;
+    private String name;
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
             if(PropertyManager.getInstance().getUuid().equals("") && PropertyManager.getInstance().getUserName().equals("")){
+//                SignUpItem signUpItem = new SignUpItem();
+//                signUpItem.setName(P);
                 Intent intent = new Intent(MidasApplication.getContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
