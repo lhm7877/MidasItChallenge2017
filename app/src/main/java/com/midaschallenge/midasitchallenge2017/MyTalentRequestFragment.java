@@ -1,8 +1,10 @@
 package com.midaschallenge.midasitchallenge2017;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -62,8 +64,30 @@ public class MyTalentRequestFragment extends Fragment{
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            final MyTalentRequestItem myTalentRequestItem = myTalentRequestItems.get(position);
+            if(myTalentRequestItem.getCompleted_at().equals("") || myTalentRequestItem.getCompleted_at()==null){
+                holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorAccent));
+            }
+
+            holder.cv_my_talent_request.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TalentDonationService talentDonationService = TalentDonationModel.makeRetrofitBuild(MidasApplication.getContext());
+                    Call<Void> call = talentDonationService.completeDonation(myTalentRequestItem.getId());
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            holder.cv_my_talent_request.setCardBackgroundColor(getResources().getColor(R.color.colorWhite));
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
             holder.myTalentRequestItemTitle.setText(myTalentRequestItem.getTitle());
             holder.myTalentRequestItemContent.setText(myTalentRequestItem.getContents());
         }
@@ -75,9 +99,11 @@ public class MyTalentRequestFragment extends Fragment{
 
         public class ViewHolder extends RecyclerView.ViewHolder{
             private TextView myTalentRequestItemTitle, myTalentRequestItemContent;
+            private CardView cv_my_talent_request;
 
             public ViewHolder(View itemView) {
                 super(itemView);
+                cv_my_talent_request = (CardView) itemView.findViewById(R.id.cv_my_talent_request);
                 myTalentRequestItemTitle = (TextView) itemView.findViewById(R.id.my_talent_request_item_title);
                 myTalentRequestItemContent = (TextView) itemView.findViewById(R.id.my_talent_request_item_content);
             }
